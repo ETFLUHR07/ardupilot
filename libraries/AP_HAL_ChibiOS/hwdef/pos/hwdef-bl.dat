@@ -1,0 +1,55 @@
+# hw definition file for processing by chibios_hwdef.py
+# for H743 bootloader
+
+# MCU class and specific type
+MCU STM32H7xx STM32H743xx
+
+# crystal frequency
+OSCILLATOR_HZ 0
+
+#define STM32_HSE_BYPASS
+
+# board ID for firmware load
+APJ_BOARD_ID 139
+
+# ChibiOS system timer
+STM32_ST_USE_TIMER 5
+
+# the nucleo seems to have trouble with flashing the last sector?
+FLASH_SIZE_KB 1920
+
+# bootloader is installed at zero offset
+FLASH_RESERVE_START_KB 0
+
+# the location where the bootloader will put the firmware
+# the H743 has 128k sectors
+FLASH_BOOTLOADER_LOAD_KB 128
+
+# order of UARTs (and USB)
+SERIAL_ORDER UART4 USART3
+
+PA13 JTMS-SWDIO SWD
+PA14 JTCK-SWCLK SWD
+
+PC10 UART4_TX UART4
+PC11 UART4_RX UART4
+
+PD8 USART3_TX USART3
+PD9 USART3_RX USART3
+PD11 USART3_CTS USART3
+PD12 USART3_RTS USART3
+
+define STM32_SPI_USE_SPI1 TRUE
+define STM32_SPI_USE_SPI5 TRUE
+
+PG4 LED1 OUTPUT LOW
+PG5 LED2 OUTPUT HIGH
+PG6 LED3 OUTPUT LOW
+PG7 LED4 OUTPUT HIGH
+
+# Add CS pins to ensure they are high in bootloader
+PF6 IMU_CS CS
+PA4 BARO_CS CS
+
+# Enable DFU by default
+#ENABLE_DFU_BOOT 1
